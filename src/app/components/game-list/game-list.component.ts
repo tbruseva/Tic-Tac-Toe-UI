@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IGame } from 'src/app/Interfaces';
+import { Subject, takeUntil } from 'rxjs';
+import { IGame } from 'src/app/interfaces';
 import { GameStatusEnum, gameStatusToStringMap } from 'src/app/enums';
+import { GameManagerService } from 'src/app/services/game.service';
 
 @Component({
     selector: 'game-list',
@@ -12,15 +14,31 @@ export class GameListComponent implements OnInit {
 
     public gameStatusToString = gameStatusToStringMap;
 
-    costructor() {
+    private _ngUnsubscribe: Subject<void> = new Subject<void>();
+
+    constructor(private _gameService: GameManagerService) {
     }
 
     ngOnInit() {
-        this.generateGames(10);
+        this._gameService.getAllGames()
+            .pipe(
+                takeUntil(this._ngUnsubscribe))
+            .subscribe((result: IGame[]) => {
+                if (result) {
+                    this.gameList = result;
+                }
+            });
     }
 
     public onCreateNewGameClick() {
-        this.generateGames(1);
+        this._gameService.createGame()
+            .pipe(
+                takeUntil(this._ngUnsubscribe))
+            .subscribe((result: IGame) => {
+                if (result) {
+                    this.gameList.push(result);
+                }
+            });
     }
 
     private generateGames(count: number)  {

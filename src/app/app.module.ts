@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TitatoBoardComponent } from './components/titato-board/titato-board.component';
 import { GameListComponent } from './components/game-list/game-list.component';
@@ -14,7 +15,8 @@ import { GameListComponent } from './components/game-list/game-list.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
