@@ -1,0 +1,9 @@
+<div class="resizable">
+    <div class="game-board">
+        <div *ngFor="let mark of boardCells; index as i" 
+        class="box allowed"
+        (click)="onClickCell(i)">
+            {{ markToStringMap[mark]}}
+        </div>
+    </div>
+</div>
