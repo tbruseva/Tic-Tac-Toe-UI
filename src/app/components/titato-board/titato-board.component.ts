@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ITitatoBoardCell } from '../Interfaces/titato-board-cell.interface';
-import { TitatoMark, titatoMarkToStringMap } from '../enums/titato-mark.emum';
+import { TitatoMark, titatoMarkToStringMap } from '../../enums/titato-mark.emum';
 
 @Component({
     selector: 'titato-board',

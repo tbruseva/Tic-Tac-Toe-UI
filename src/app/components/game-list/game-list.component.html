@@ -1,0 +1,22 @@
+<div class="container py-2">
+    <div class="row">
+        <div class="col-sm-4 col-md-3 py-3">
+            <div class="card border-primary">
+                <div class="card-body">
+                    <h3 class="card-title">Tic-Tac-Toe</h3>
+                    <p class="card-text">New Game</p>
+                    <button href="#" class="btn btn-outline-secondary" (click)="onCreateNewGameClick()">Create</button>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let game of gameList; index as i" class="col-sm-4 col-md-3 py-3">
+            <div class="card border-primary">
+                <div class="card-body">
+                    <h3 class="card-title">Tic-Tac-Toe</h3>
+                    <p class="card-text">{{ gameStatusToString[game.status] }}</p>
+                    <a href="#" class="btn btn-outline-secondary">Join</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
