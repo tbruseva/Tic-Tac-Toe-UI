@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <h3 class="card-title">Tic-Tac-Toe</h3>
                     <p class="card-text">New Game</p>
-                    <button href="#" class="btn btn-outline-secondary" (click)="onCreateNewGameClick()">Create</button>
+                    <button class="btn btn-outline-secondary" (click)="onCreateNewGameClick()" >Create</button>
                 </div>
             </div>
         </div>
@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <h3 class="card-title">Tic-Tac-Toe</h3>
                     <p class="card-text">{{ gameStatusToString[game.status] }}</p>
-                    <a href="#" class="btn btn-outline-secondary">Join</a>
+                    <a href="#" class="btn btn-outline-secondary" [routerLink]="['game', game.id]">Join</a>
                 </div>
             </div>
         </div>

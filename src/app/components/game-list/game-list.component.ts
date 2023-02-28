@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Subject, takeUntil } from 'rxjs';
+
 import { IGame } from 'src/app/interfaces';
 import { GameStatusEnum, gameStatusToStringMap } from 'src/app/enums';
 import { GameManagerService } from 'src/app/services/game.service';
@@ -16,7 +19,9 @@ export class GameListComponent implements OnInit {
 
     private _ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(private _gameService: GameManagerService) {
+    constructor(
+        private _router: Router,
+        private _gameService: GameManagerService) {
     }
 
     ngOnInit() {
@@ -34,9 +39,9 @@ export class GameListComponent implements OnInit {
         this._gameService.createGame()
             .pipe(
                 takeUntil(this._ngUnsubscribe))
-            .subscribe((result: IGame) => {
-                if (result) {
-                    this.gameList.push(result);
+            .subscribe((newGame: IGame) => {
+                if (newGame) {
+                    this._router.navigate([`game`, newGame.id ])
                 }
             });
     }
