@@ -1,6 +1,6 @@
-import { TitatoMark as titatoMark } from '../enums/titato-mark.emum';
+import { TitatoMark } from '../enums/titato-mark.emum';
 
 export interface ITitatoBoardCell {
     index: number;
-    value: titatoMark;
+    value: TitatoMark;
 }
