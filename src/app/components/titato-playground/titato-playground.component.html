@@ -1,17 +1,22 @@
-<div class="row">
-    <div class="col"></div>
-    <div class="col">
-        <div class="row">
-            <div class="col">You: {{ yourPlayer?.name }} ({{markToStringMap[yourMark]}})</div>   
-            <div class="col">Oponent: {{ oponentPlayer?.name }}  ({{markToStringMap[oponentMark]}})</div>    
-        </div>
-    </div>
-    <div class="col"></div>
-</div>
-<div class="row pt-5">
+<div class="row pt-3">
     <div class="col"></div>
     <div class="col-auto">
-        <titato-board [playerMark]="yourMark" [boardCells]="boardCells" [winCells]="winCells" (cellClicked)="boardCellClicked($event)"></titato-board>
+        <div class="row">
+            <div class="col">
+                <div>You: {{markToStringMap[yourMark]}}</div>
+                <div class="small">{{ yourPlayer?.name }}</div>
+            </div>   
+            <div class="col">
+                <div>Oponent: {{markToStringMap[oponentMark]}}</div>
+                <div class="small">{{ oponentPlayer ? oponentPlayer?.name : "Waiting..." }}</div>    
+        
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col">
+                <titato-board [playerMark]="yourMark" [boardCells]="boardCells" [winCells]="winCells" (cellClicked)="boardCellClicked($event)"></titato-board>
+            </div>
+        </div>
     </div>
     <div class="col"></div>
 </div>
