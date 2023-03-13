@@ -23,6 +23,15 @@ export class TicTacToeGameService {
         );
     }
 
+    public restartGame(gameId: number, playerId: number): Observable<ITitatoGame> {
+        const headers = new HttpHeaders().set('playerId', playerId.toString());
+        return this._httpClient.post(`${this._gameApi}/TicTacToe/RestartGame/${gameId}`, null, {headers}).pipe(
+            map((res: any) => {
+                return res;
+            })
+        );
+    }
+
     public makeMove(playerId: number, gameId: number, rowPosition: number, colPosition: number): Observable<ITitatoGame> {
         const headers = new HttpHeaders()
             .set('playerId', playerId.toString())

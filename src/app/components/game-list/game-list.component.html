@@ -17,8 +17,8 @@
         <div *ngFor="let game of gameList; index as i" class="col-sm-4 col-md-3 py-3">
             <div class="card border-primary">
                 <div class="card-body">
-                    <h3 class="card-title">Tic-Tac-Toe</h3>
-                    <p class="card-text">{{ gameStatusToString[game.gameStatus] }}</p>
+                    <h3 class="card-title">Tic-Tac-Toe #{{ game.id }}</h3>
+                    <p class="card-text">{{ gameStatusToString[game.status] }}</p>
                     <a href="#" class="btn btn-outline-secondary" (click)="onJoinGameClick(game.id)">Join</a>
                 </div>
             </div>

@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 // RxJs
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, interval } from 'rxjs';
+
 // Interfaces
 import { ITitatoGame, IPlayer } from 'src/app/interfaces';
 import { TitatoMark, titatoMarkToStringMap } from 'src/app/enums';
 // Services
 import { TicTacToeGameService } from 'src/app/services/tic-tac-toe-game.service';
-import { GameManagerService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'titato-playground',
@@ -27,7 +27,6 @@ export class TitatoPlaygroundComponent implements OnInit, OnDestroy {
 
     constructor(
         private _activatedRoute: ActivatedRoute,
-        private _gameService: GameManagerService,
         private _titatoService: TicTacToeGameService ) {
     }
 
@@ -35,32 +34,15 @@ export class TitatoPlaygroundComponent implements OnInit, OnDestroy {
         this._activatedRoute.params.pipe(takeUntil(this._ngUnsubscribe)).subscribe((param: any) => {
             if (param.gameId) {
                 this._gameId = param.gameId;
-                this._titatoService.getGameById(param.gameId)
-                .pipe(
-                    takeUntil(this._ngUnsubscribe))
-                .subscribe((game: ITitatoGame) => {
-                    if (game) {
-                        this.boardCells = game.grid;
-                        this.winCells = game.winCells;
-
-                        const playerId = localStorage.getItem('playerId');
-
-                        if (playerId == game.playerX?.id.toString()) {
-                            this.yourPlayer = game.playerX;
-                            this.oponentPlayer = game.playerO;
-                            this.yourMark = TitatoMark.X;
-                            this.oponentMark = TitatoMark.O;
-                        } else if (playerId == game.playerO?.id.toString()) {
-                            this.yourPlayer = game.playerO;
-                            this.oponentPlayer = game.playerX;
-                            this.yourMark = TitatoMark.O;
-                            this.oponentMark = TitatoMark.X;
-                        }
-
-                    }
-                });
+                this.loadGameData(this._gameId);
             }
         });
+
+        const myObservable = interval(3000); 
+        myObservable.pipe(takeUntil(this._ngUnsubscribe)).subscribe(() => { 
+            console.log('This will get latest stae version of the game'); 
+            this.loadGameData(this._gameId);
+        });        
     }
 
     public ngOnDestroy() {
@@ -80,6 +62,46 @@ export class TitatoPlaygroundComponent implements OnInit, OnDestroy {
         .subscribe((game: ITitatoGame) => {
             if (game) {
                 this.boardCells = game.grid;
+            }
+        });
+    }
+
+    public onRestartGameClick() {
+        if(!this.yourPlayer) {
+            return;
+        }
+        this._titatoService.restartGame(this._gameId, this.yourPlayer.id)
+        .pipe(
+            takeUntil(this._ngUnsubscribe))
+        .subscribe((game: ITitatoGame) => {
+            if (game) {
+                this.boardCells = game.grid;
+            }
+        });
+    }   
+ 
+    private loadGameData(gameId: number) {
+        this._titatoService.getGameById(gameId)
+        .pipe(
+            takeUntil(this._ngUnsubscribe))
+        .subscribe((game: ITitatoGame) => {
+            if (game) {
+                this.boardCells = game.grid;
+                this.winCells = game.winCells;
+
+                const playerId = localStorage.getItem('playerId');
+
+                if (playerId == game.playerX?.id.toString()) {
+                    this.yourPlayer = game.playerX;
+                    this.oponentPlayer = game.playerO;
+                    this.yourMark = TitatoMark.X;
+                    this.oponentMark = TitatoMark.O;
+                } else if (playerId == game.playerO?.id.toString()) {
+                    this.yourPlayer = game.playerO;
+                    this.oponentPlayer = game.playerX;
+                    this.yourMark = TitatoMark.O;
+                    this.oponentMark = TitatoMark.X;
+                }
             }
         });
     }

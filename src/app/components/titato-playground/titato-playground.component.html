@@ -8,13 +8,18 @@
             </div>   
             <div class="col">
                 <div>Oponent: {{markToStringMap[oponentMark]}}</div>
-                <div class="small">{{ oponentPlayer ? oponentPlayer?.name : "Waiting..." }}</div>    
+                <div class="small">{{ oponentPlayer ? oponentPlayer.name : "Waiting..." }}</div>    
         
             </div>
         </div>
         <div class="row pt-3">
             <div class="col">
                 <titato-board [playerMark]="yourMark" [boardCells]="boardCells" [winCells]="winCells" (cellClicked)="boardCellClicked($event)"></titato-board>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col">
+                <button class="btn btn-outline-secondary" (click)="onRestartGameClick()" >Restart</button>
             </div>
         </div>
     </div>
