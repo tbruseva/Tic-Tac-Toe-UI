@@ -15,6 +15,7 @@ import { GameManagerService } from 'src/app/services/game.service';
 })
 export class TitatoPlaygroundComponent implements OnInit, OnDestroy {
     public boardCells: TitatoMark[] = new Array(9).fill(TitatoMark.none);
+    public winCells: number[] = [];
     public yourPlayer?: IPlayer;
     public oponentPlayer?: IPlayer;
     public yourMark: TitatoMark = TitatoMark.none;
@@ -40,6 +41,7 @@ export class TitatoPlaygroundComponent implements OnInit, OnDestroy {
                 .subscribe((game: ITitatoGame) => {
                     if (game) {
                         this.boardCells = game.grid;
+                        this.winCells = game.winCells;
 
                         const playerId = localStorage.getItem('playerId');
 

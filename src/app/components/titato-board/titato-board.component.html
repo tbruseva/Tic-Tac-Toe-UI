@@ -3,6 +3,7 @@
         <div *ngFor="let mark of boardCells; index as i" 
         class="box allowed"
         [class.allowed]="mark === 0"
+        [class.winCell]="winCells.indexOf(i) >= 0"
         (click)="onClickCell(i)">
             {{ markToStringMap[mark]}}
         </div>

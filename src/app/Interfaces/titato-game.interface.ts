@@ -10,5 +10,6 @@ export interface ITitatoGame
     playerX?: IPlayer;
     playerO?: IPlayer;
     grid: TitatoMark[];
+    winCells: number[];
     currentMark: TitatoMark;
 }

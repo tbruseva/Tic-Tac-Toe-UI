@@ -11,6 +11,8 @@ import { TitatoMark, titatoMarkToStringMap } from '../../enums/titato-mark.emum'
 export class TitatoBoardComponent {
     @Input() public playerMark: TitatoMark = TitatoMark.none;
     @Input() public boardCells: TitatoMark[] = new Array(9).fill(TitatoMark.none);
+    @Input() public winCells: number[] = [];
+
     @Output() cellClicked = new EventEmitter<number>();
 
     public markToStringMap = titatoMarkToStringMap;
