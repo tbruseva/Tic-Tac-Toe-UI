@@ -31,14 +31,6 @@ export class GameManagerService {
         );
     }
 
-    public getGameById(gameId: number): Observable<ITitatoGame> {
-        return this._httpClient.get(`${this._gameApi}/Game/${gameId}`, {}).pipe(
-            map((res: any) => {
-                return res;
-            })
-        );
-    }
-
     public getPlayerById(playerId: number | string): Observable<IPlayer> {
         return this._httpClient.get(`${this._gameApi}/Game/Player/${playerId}`, {}).pipe(
             map((res: any) => {

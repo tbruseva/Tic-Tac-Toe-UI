@@ -15,6 +15,14 @@ export class TicTacToeGameService {
     constructor(private _httpClient: HttpClient) {
     }
 
+    public getGameById(gameId: number): Observable<ITitatoGame> {
+        return this._httpClient.get(`${this._gameApi}/TicTacToe/${gameId}`, {}).pipe(
+            map((res: any) => {
+                return res;
+            })
+        );
+    }
+
     public makeMove(playerId: number, gameId: number, rowPosition: number, colPosition: number): Observable<ITitatoGame> {
         const headers = new HttpHeaders()
             .set('playerId', playerId.toString())

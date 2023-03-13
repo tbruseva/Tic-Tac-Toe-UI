@@ -34,7 +34,7 @@ export class TitatoPlaygroundComponent implements OnInit, OnDestroy {
         this._activatedRoute.params.pipe(takeUntil(this._ngUnsubscribe)).subscribe((param: any) => {
             if (param.gameId) {
                 this._gameId = param.gameId;
-                this._gameService.getGameById(param.gameId)
+                this._titatoService.getGameById(param.gameId)
                 .pipe(
                     takeUntil(this._ngUnsubscribe))
                 .subscribe((game: ITitatoGame) => {
