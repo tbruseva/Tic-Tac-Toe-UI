@@ -2,6 +2,7 @@
     <div class="game-board">
         <div *ngFor="let mark of boardCells; index as i" 
         class="box allowed"
+        [class.allowed]="mark === 0"
         (click)="onClickCell(i)">
             {{ markToStringMap[mark]}}
         </div>

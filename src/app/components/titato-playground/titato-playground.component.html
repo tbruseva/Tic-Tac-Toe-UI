@@ -2,8 +2,8 @@
     <div class="col"></div>
     <div class="col">
         <div class="row">
-            <div class="col">You: {{ yourPlayer?.name }}</div>   
-            <div class="col">Oponent: {{ oponentPlayer?.name }}</div>    
+            <div class="col">You: {{ yourPlayer?.name }} ({{markToStringMap[yourMark]}})</div>   
+            <div class="col">Oponent: {{ oponentPlayer?.name }}  ({{markToStringMap[oponentMark]}})</div>    
         </div>
     </div>
     <div class="col"></div>
@@ -11,7 +11,7 @@
 <div class="row pt-5">
     <div class="col"></div>
     <div class="col-auto">
-        <titato-board [boardCells]="boardCells"></titato-board>
+        <titato-board [playerMark]="yourMark" [boardCells]="boardCells" (cellClicked)="boardCellClicked($event)"></titato-board>
     </div>
     <div class="col"></div>
 </div>

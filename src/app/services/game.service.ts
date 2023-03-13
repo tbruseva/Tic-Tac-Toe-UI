@@ -1,11 +1,10 @@
 // Angular
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpContext, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 // Rxjs
 import { map, Observable, of } from 'rxjs';
 // Interfaces
 import { IGame, ITitatoGame, IPlayer } from '../interfaces';
-import { GameStatusEnum } from '../enums';
 
 @Injectable({
     providedIn: 'root',
@@ -49,7 +48,6 @@ export class GameManagerService {
     }
 
     public createPlayer(playerName: string = '') {
-        
         const headers = new HttpHeaders().set('username', playerName);
         return this._httpClient.post(`${this._gameApi}/Game/Player`, null, {headers}).pipe(
             map((res: any) => {
