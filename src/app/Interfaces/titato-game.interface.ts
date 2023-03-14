@@ -12,4 +12,5 @@ export interface ITitatoGame
     grid: TitatoMark[];
     winCells: number[];
     currentMark: TitatoMark;
+    gameState: number;
 }

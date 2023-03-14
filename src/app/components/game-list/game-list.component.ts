@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Subject, takeUntil, finalize } from 'rxjs';
 
 import { IGame, IPlayer } from 'src/app/interfaces';
-import { GameStatusEnum, gameStatusToStringMap } from 'src/app/enums';
+import { gameStatusToStringMap } from 'src/app/enums';
 import { GameManagerService } from 'src/app/services/game.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { GameManagerService } from 'src/app/services/game.service';
     templateUrl: './game-list.component.html',
     styleUrls: ['./game-list.component.scss']
 })
-export class GameListComponent implements OnInit {
+export class GameListComponent implements OnInit, OnDestroy {
     public gameList: IGame[] = [];
     public player: IPlayer | undefined;
     
@@ -54,6 +54,11 @@ export class GameListComponent implements OnInit {
                 }
             });
     }
+
+    public ngOnDestroy() {
+        this._ngUnsubscribe.next();
+        this._ngUnsubscribe.complete();
+    }    
 
     public onCreateNewGameClick() {
         this._gameService.createGame()

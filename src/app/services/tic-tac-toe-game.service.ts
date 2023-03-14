@@ -23,6 +23,14 @@ export class TicTacToeGameService {
         );
     }
 
+    public getGameStateById(gameId: number): Observable<number> {
+        return this._httpClient.get(`${this._gameApi}/TicTacToe/GameState/${gameId}`, {}).pipe(
+            map((res: any) => {
+                return res;
+            })
+        );
+    }
+
     public restartGame(gameId: number, playerId: number): Observable<ITitatoGame> {
         const headers = new HttpHeaders().set('playerId', playerId.toString());
         return this._httpClient.post(`${this._gameApi}/TicTacToe/RestartGame/${gameId}`, null, {headers}).pipe(

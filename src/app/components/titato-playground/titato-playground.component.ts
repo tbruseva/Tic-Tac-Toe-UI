@@ -24,6 +24,7 @@ export class TitatoPlaygroundComponent implements OnInit, OnDestroy {
 
     private _ngUnsubscribe: Subject<void> = new Subject<void>();
     private _gameId: number = 0;
+    private _currentGameState: number = 0
 
     constructor(
         private _activatedRoute: ActivatedRoute,
@@ -38,14 +39,21 @@ export class TitatoPlaygroundComponent implements OnInit, OnDestroy {
             }
         });
 
-        const myObservable = interval(3000); 
+        const myObservable = interval(2000); 
         myObservable.pipe(takeUntil(this._ngUnsubscribe)).subscribe(() => { 
-            console.log('This will get latest stae version of the game'); 
-            this.loadGameData(this._gameId);
+            this._titatoService.getGameStateById(this._gameId)
+            .pipe(
+                takeUntil(this._ngUnsubscribe))
+            .subscribe((state: number) => {
+                if (state !== this._currentGameState) {
+                    this.loadGameData(this._gameId);
+                }
+            })
         });        
     }
 
     public ngOnDestroy() {
+        this._ngUnsubscribe.next();
         this._ngUnsubscribe.complete();
     }
 
@@ -88,6 +96,7 @@ export class TitatoPlaygroundComponent implements OnInit, OnDestroy {
             if (game) {
                 this.boardCells = game.grid;
                 this.winCells = game.winCells;
+                this._currentGameState = game.gameState;
 
                 const playerId = localStorage.getItem('playerId');
 
