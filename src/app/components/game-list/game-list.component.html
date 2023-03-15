@@ -6,23 +6,32 @@
     </div>
     <div class="row">
         <div class="col-sm-4 col-md-3 py-3">
-            <div class="card border-primary">
+            <div class="card">
+                <div class="card-header bg-light">Tic-Tac-Toe</div>
                 <div class="card-body">
-                    <h3 class="card-title">Tic-Tac-Toe</h3>
                     <p class="card-text">New Game</p>
-                    <div class="d-flex">
-                        <button class="btn btn-outline-secondary me-3" (click)="onCreateNewGameClick(false)" >Play</button>
-                        <button class="btn btn-outline-secondary" (click)="onCreateNewGameClick(true)" >Play with Computer</button>
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-auto">
+                            <button class="btn btn-outline-secondary" (click)="onCreateNewGameClick(false)" >Play <i class="bi bi-person"></i></button>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-outline-secondary" (click)="onCreateNewGameClick(true)" >Play <i class="bi bi-robot"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div *ngFor="let game of gameList; index as i" class="col-sm-4 col-md-3 py-3">
-            <div class="card border-primary">
+            <div class="card">
+                <div class="card-header bg-light">Tic-Tac-Toe #{{ game.id }}</div>
                 <div class="card-body">
-                    <h3 class="card-title">Tic-Tac-Toe #{{ game.id }}</h3>
-                    <p class="card-text">{{ gameStatusToString[game.status] }}</p>
-                    <a href="#" class="btn btn-outline-secondary" (click)="onJoinGameClick(game.id)">Join</a>
+                    <span class="small">{{ gameStatusToString[game.status] }}</span>
+                    <div class="ms-3" *ngFor="let player of game.players; index as j">
+                        <i *ngIf="player.id !== 0" class="bi bi-person"></i>
+                        <i *ngIf="player.id === 0" class="bi bi-robot"></i>
+                        <span class="small"> {{ player.name }}</span>
+                    </div>
+                    <a href="#" class="btn btn-outline-secondary mt-3" (click)="onJoinGameClick(game.id)">Join</a>
                 </div>
             </div>
         </div>
