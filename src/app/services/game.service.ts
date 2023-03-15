@@ -49,9 +49,17 @@ export class GameManagerService {
     }
     
     public joinGame(gameId: number, playerId: number) {
-        
         const headers = new HttpHeaders().set('playerId', playerId.toString());
         return this._httpClient.post(`${this._gameApi}/Game/JoinGame/${gameId}`, null, {headers}).pipe(
+            map((res: any) => {
+                return res;
+            })
+        );
+    }
+
+    public joinGameAgainstComputer(gameId: number, playerId: number) {
+        const headers = new HttpHeaders().set('playerId', playerId.toString());
+        return this._httpClient.post(`${this._gameApi}/Game/JoinGameAgainstComputer/${gameId}`, null, {headers}).pipe(
             map((res: any) => {
                 return res;
             })

@@ -10,7 +10,10 @@
                 <div class="card-body">
                     <h3 class="card-title">Tic-Tac-Toe</h3>
                     <p class="card-text">New Game</p>
-                    <button class="btn btn-outline-secondary" (click)="onCreateNewGameClick()" >Create</button>
+                    <div class="d-flex">
+                        <button class="btn btn-outline-secondary me-3" (click)="onCreateNewGameClick(false)" >Play</button>
+                        <button class="btn btn-outline-secondary" (click)="onCreateNewGameClick(true)" >Play with Computer</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -60,25 +60,29 @@ export class GameListComponent implements OnInit, OnDestroy {
         this._ngUnsubscribe.complete();
     }    
 
-    public onCreateNewGameClick() {
+    public onCreateNewGameClick(auto: boolean) {
         this._gameService.createGame()
             .pipe(
                 takeUntil(this._ngUnsubscribe))
             .subscribe((newGame: IGame) => {
-                if (newGame) {
-                    this.joinGame(newGame.id, this.player)                }
+                if (newGame && this.player) {
+                    this.joinGame(newGame.id, this.player, auto);                
+                }
             });
     }
 
     public onJoinGameClick(gameId: number) {
-        this.joinGame(gameId, this.player);
+        if (this.player) {
+            this.joinGame(gameId, this.player, false);
+        }
     }
 
-    private joinGame(gameId: number, player?: IPlayer) {
-        if (!player) {
-            return;
-        }
-        this._gameService.joinGame(gameId, player.id)
+    private joinGame(gameId: number, player: IPlayer, auto: boolean) {
+        const joinGameEndpoint = auto 
+            ? this._gameService.joinGameAgainstComputer(gameId, player.id)
+            : this._gameService.joinGame(gameId, player.id);
+
+        joinGameEndpoint
             .pipe(
                 takeUntil(this._ngUnsubscribe))
             .subscribe((newGame: IGame) => {
