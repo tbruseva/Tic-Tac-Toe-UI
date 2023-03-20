@@ -16,7 +16,7 @@ export class GameManagerService {
     }
 
     public getAllGames(): Observable<IGame[]> {
-        return this._httpClient.get(`${this._gameApi}/Game/allGames`, {}).pipe(
+        return this._httpClient.get(`${this._gameApi}/Game/Games`, {}).pipe(
             map((res: any) => {
                 return res;
             })
@@ -24,7 +24,7 @@ export class GameManagerService {
     }
 
     public createGame(): Observable<IGame> {
-        return this._httpClient.post(`${this._gameApi}/Game/CreateGame`, {}).pipe(
+        return this._httpClient.post(`${this._gameApi}/Game`, {}).pipe(
             map((res: any) => {
                 return res;
             })
@@ -48,8 +48,10 @@ export class GameManagerService {
         );
     }
     
-    public joinGame(gameId: number, playerId: number) {
-        const headers = new HttpHeaders().set('playerId', playerId.toString());
+    public joinGame(gameId: number, playerId: number, autoplay: boolean){
+        const headers = new HttpHeaders()
+        .set('playerId', playerId.toString())
+        .set('auto', autoplay.toString());
         return this._httpClient.post(`${this._gameApi}/Game/JoinGame/${gameId}`, null, {headers}).pipe(
             map((res: any) => {
                 return res;
@@ -57,12 +59,14 @@ export class GameManagerService {
         );
     }
 
-    public joinGameAgainstComputer(gameId: number, playerId: number) {
-        const headers = new HttpHeaders().set('playerId', playerId.toString());
-        return this._httpClient.post(`${this._gameApi}/Game/JoinGameAgainstComputer/${gameId}`, null, {headers}).pipe(
-            map((res: any) => {
-                return res;
-            })
-        );
-    }
+    // public joinGameAgainstComputer(gameId: number, playerId: number) {
+    //     const headers = new HttpHeaders()
+    //     .set('playerId', playerId.toString())
+    //     .set('auto', 'true');
+    //     return this._httpClient.post(`${this._gameApi}/Game/JoinGame/${gameId}`, null, {headers}).pipe(
+    //         map((res: any) => {
+    //             return res;
+    //         })
+    //     );
+    // }
 }

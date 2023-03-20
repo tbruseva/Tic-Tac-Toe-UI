@@ -77,10 +77,8 @@ export class GameListComponent implements OnInit, OnDestroy {
         }
     }
 
-    private joinGame(gameId: number, player: IPlayer, auto: boolean) {
-        const joinGameEndpoint = auto 
-            ? this._gameService.joinGameAgainstComputer(gameId, player.id)
-            : this._gameService.joinGame(gameId, player.id);
+    private joinGame(gameId: number, player: IPlayer, autoPlay: boolean) {
+        const joinGameEndpoint = this._gameService.joinGame(gameId, player.id, autoPlay);
 
         joinGameEndpoint
             .pipe(
