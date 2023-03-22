@@ -24,7 +24,8 @@ export class GameManagerService {
     }
 
     public createGame(): Observable<IGame> {
-        return this._httpClient.post(`${this._gameApi}/Game`, {}).pipe(
+        const headers = new HttpHeaders().set('name', 'Tic-Tac-Toe');
+        return this._httpClient.post(`${this._gameApi}/Game`, null, {headers}).pipe(
             map((res: any) => {
                 return res;
             })
